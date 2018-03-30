@@ -52,8 +52,6 @@ descripcionDeErrorDeNumerosNegativosNoSoportados
 !I class methodsFor: 'operators' stamp: 'LREV 3/29/2018 16:39:24'!
 / unNumeroDePeano
 	
-	
-	
 	^ unNumeroDePeano = self ifTrue: [I] ifFalse:  [self error: self descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor]! !
 
 !I class methodsFor: 'operators' stamp: 'LREV 3/29/2018 16:21:31'!
@@ -130,8 +128,6 @@ seguirResta: unBloque
 !II class methodsFor: 'operators' stamp: 'LREV 3/29/2018 17:46:53'!
 / unNumeroDePeano
 
-	
-	
 	^ unNumeroDePeano <= self ifTrue: [
 				unNumeroDePeano = self 
 					ifTrue: [I] 
@@ -154,197 +150,5 @@ seguirResta: unBloque
 descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor
 	^'No se puede dividir por un numero mayor'.! !
 
-II instVarNamed: 'next' put: III!
+II instVarNamed: 'next' put: nil!
 II instVarNamed: 'previous' put: I!
-
-!classDefinition: #III category: #'Numeros De Peano'!
-DenotativeObject subclass: #III
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Numeros De Peano'!
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'III class' category: #'Numeros De Peano'!
-III class
-	instanceVariableNames: 'next previous'!
-
-!III class methodsFor: 'as yet unclassified' stamp: 'LREV 3/29/2018 21:51:31'!
-next
-
-	next ifNil:
-	[
-		next := self cloneNamed: (self name, 'I').
-		next previous: self.
-		]. "la coma concatena"
-	^ next! !
-
-!III class methodsFor: 'as yet unclassified' stamp: 'LREV 3/29/2018 21:51:31'!
-previous
-	^ previous! !
-
-!III class methodsFor: 'as yet unclassified' stamp: 'LREV 3/29/2018 21:51:31'!
-previous: aNumber
-	previous := aNumber ! !
-
-!III class methodsFor: 'as yet unclassified' stamp: 'LREV 3/29/2018 21:51:31'!
-removeAllNext
-
-	next ifNotNil:
-	[
-		next removeAllNext.
-		next removeFromSystem.
-		next := nil.
-	]! !
-
-!III class methodsFor: 'as yet unclassified' stamp: 'LREV 3/29/2018 21:51:31'!
-seguirResta: unBloque
-	unBloque value.
-	self previous seguirResta: unBloque.! !
-
-
-!III class methodsFor: 'operators' stamp: 'LREV 3/29/2018 21:51:31'!
-* unNumeroDePeano
-
-	^ unNumeroDePeano + (self previous * unNumeroDePeano).! !
-
-!III class methodsFor: 'operators' stamp: 'LREV 3/29/2018 21:51:31'!
-+ unNumeroDePeano
-	^ self previous + unNumeroDePeano next.! !
-
-!III class methodsFor: 'operators' stamp: 'LREV 3/29/2018 21:51:31'!
-- unNumeroDePeano
-
-	|resultadoParcialResta|
-	
-	resultadoParcialResta := self.
-	unNumeroDePeano seguirResta: [resultadoParcialResta := resultadoParcialResta previous].
-	
-	^resultadoParcialResta.! !
-
-!III class methodsFor: 'operators' stamp: 'LREV 3/29/2018 21:51:31'!
-/ unNumeroDePeano
-
-	
-	
-	^ unNumeroDePeano <= self ifTrue: [
-				unNumeroDePeano = self 
-					ifTrue: [I] 
-					ifFalse:  [I + ( (self - unNumeroDePeano) / unNumeroDePeano) ] ] 
-				ifFalse: [ 
-					self error: self descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor
-					]
-				! !
-
-!III class methodsFor: 'operators' stamp: 'LREV 3/29/2018 21:51:31'!
-<= unNumeroDePeano
-	|rta|
-	rta := unNumeroDePeano = self.
-	
-	 
-	^ rta ifTrue: true ifFalse: [ unNumeroDePeano = I ifTrue: false ifFalse: [self previous <= unNumeroDePeano previous] ]! !
-
-
-!III class methodsFor: 'errors' stamp: 'LREV 3/29/2018 21:51:31'!
-descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor
-	^'No se puede dividir por un numero mayor'.! !
-
-III instVarNamed: 'next' put: IIII!
-III instVarNamed: 'previous' put: II!
-
-!classDefinition: #IIII category: #'Numeros De Peano'!
-DenotativeObject subclass: #IIII
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Numeros De Peano'!
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'IIII class' category: #'Numeros De Peano'!
-IIII class
-	instanceVariableNames: 'next previous'!
-
-!IIII class methodsFor: 'as yet unclassified' stamp: 'LREV 3/29/2018 21:51:31'!
-next
-
-	next ifNil:
-	[
-		next := self cloneNamed: (self name, 'I').
-		next previous: self.
-		]. "la coma concatena"
-	^ next! !
-
-!IIII class methodsFor: 'as yet unclassified' stamp: 'LREV 3/29/2018 21:51:31'!
-previous
-	^ previous! !
-
-!IIII class methodsFor: 'as yet unclassified' stamp: 'LREV 3/29/2018 21:51:31'!
-previous: aNumber
-	previous := aNumber ! !
-
-!IIII class methodsFor: 'as yet unclassified' stamp: 'LREV 3/29/2018 21:51:31'!
-removeAllNext
-
-	next ifNotNil:
-	[
-		next removeAllNext.
-		next removeFromSystem.
-		next := nil.
-	]! !
-
-!IIII class methodsFor: 'as yet unclassified' stamp: 'LREV 3/29/2018 21:51:31'!
-seguirResta: unBloque
-	unBloque value.
-	self previous seguirResta: unBloque.! !
-
-
-!IIII class methodsFor: 'operators' stamp: 'LREV 3/29/2018 21:51:31'!
-* unNumeroDePeano
-
-	^ unNumeroDePeano + (self previous * unNumeroDePeano).! !
-
-!IIII class methodsFor: 'operators' stamp: 'LREV 3/29/2018 21:51:31'!
-+ unNumeroDePeano
-	^ self previous + unNumeroDePeano next.! !
-
-!IIII class methodsFor: 'operators' stamp: 'LREV 3/29/2018 21:51:31'!
-- unNumeroDePeano
-
-	|resultadoParcialResta|
-	
-	resultadoParcialResta := self.
-	unNumeroDePeano seguirResta: [resultadoParcialResta := resultadoParcialResta previous].
-	
-	^resultadoParcialResta.! !
-
-!IIII class methodsFor: 'operators' stamp: 'LREV 3/29/2018 21:51:31'!
-/ unNumeroDePeano
-
-	
-	
-	^ unNumeroDePeano <= self ifTrue: [
-				unNumeroDePeano = self 
-					ifTrue: [I] 
-					ifFalse:  [I + ( (self - unNumeroDePeano) / unNumeroDePeano) ] ] 
-				ifFalse: [ 
-					self error: self descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor
-					]
-				! !
-
-!IIII class methodsFor: 'operators' stamp: 'LREV 3/29/2018 21:51:31'!
-<= unNumeroDePeano
-	|rta|
-	rta := unNumeroDePeano = self.
-	
-	 
-	^ rta ifTrue: true ifFalse: [ unNumeroDePeano = I ifTrue: false ifFalse: [self previous <= unNumeroDePeano previous] ]! !
-
-
-!IIII class methodsFor: 'errors' stamp: 'LREV 3/29/2018 21:51:31'!
-descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor
-	^'No se puede dividir por un numero mayor'.! !
-
-IIII instVarNamed: 'next' put: nil!
-IIII instVarNamed: 'previous' put: III!
