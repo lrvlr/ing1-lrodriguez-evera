@@ -435,21 +435,26 @@ Object subclass: #SummarizingAccount
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
+!SummarizingAccount methodsFor: 'testing' stamp: 'EV 5/9/2018 18:05:34'!
+isPartOfPortfolio: anotherPortfolio
+
+	self subclassResponsibility ! !
+
 !SummarizingAccount methodsFor: 'testing' stamp: 'HernanWilkinson 7/13/2011 18:34'!
 manages: anAccount
 
 	self subclassResponsibility ! !
+
+!SummarizingAccount methodsFor: 'testing' stamp: 'EV 5/9/2018 18:00:35'!
+managesAnyAccountOf: anotherAccount
+	
+	self subclassResponsibility! !
 
 !SummarizingAccount methodsFor: 'testing' stamp: 'HernanWilkinson 7/13/2011 18:34'!
 registers: aTransaction
 
 	self subclassResponsibility ! !
 
-
-!SummarizingAccount methodsFor: 'transactions' stamp: 'EV 5/9/2018 18:00:35'!
-managesAnyAccountOf: anotherAccount
-	
-	self subclassResponsibility! !
 
 !SummarizingAccount methodsFor: 'transactions' stamp: 'HernanWilkinson 7/13/2011 18:35'!
 transactions
@@ -459,12 +464,6 @@ transactions
 
 !SummarizingAccount methodsFor: 'balance' stamp: 'HernanWilkinson 7/13/2011 18:34'!
 balance
-
-	self subclassResponsibility ! !
-
-
-!SummarizingAccount methodsFor: 'as yet unclassified' stamp: 'EV 5/9/2018 18:05:34'!
-isPartOfPortfolio: anotherPortfolio
 
 	self subclassResponsibility ! !
 
@@ -482,12 +481,22 @@ balance
 	^accounts inject: 0 into: [:totalBalance :aTransaction | totalBalance + aTransaction balance]! !
 
 
+!Portfolio methodsFor: 'testing' stamp: 'EV 5/9/2018 18:04:32'!
+isPartOfPortfolio: anotherPortfolio
+	
+	^accounts anySatisfy:[ :anAccount | anotherPortfolio managesAnyAccountOf: anAccount]! !
+
 !Portfolio methodsFor: 'testing' stamp: 'LVR 5/8/2018 20:20:26'!
 manages: anAccount
  	
 	^ (self = anAccount) or: [ accounts anySatisfy: [:anAccountInPortfolio | anAccountInPortfolio manages: anAccount ] ]
 
 ! !
+
+!Portfolio methodsFor: 'testing' stamp: 'EV 5/9/2018 18:02:33'!
+managesAnyAccountOf: anotherAccount
+
+	^ anotherAccount isPartOfPortfolio: self! !
 
 !Portfolio methodsFor: 'testing' stamp: 'LVR 5/8/2018 20:16:56'!
 registers: aTransaction
@@ -511,17 +520,6 @@ transactionsOf: anAccount
 initializeWith: aCollectionOfAccounts 
 	
 	accounts := aCollectionOfAccounts! !
-
-
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'EV 5/9/2018 18:04:32'!
-isPartOfPortfolio: anotherPortfolio
-	
-	^accounts anySatisfy:[ :anAccount | anotherPortfolio managesAnyAccountOf: anAccount]! !
-
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'EV 5/9/2018 18:02:33'!
-managesAnyAccountOf: anotherAccount
-
-	^ anotherAccount isPartOfPortfolio: self! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -604,25 +602,24 @@ balance
 ! !
 
 
+!ReceptiveAccount methodsFor: 'testing' stamp: 'EV 5/9/2018 18:06:40'!
+isPartOfPortfolio: aPortfolio
+
+	^aPortfolio manages: self! !
+
 !ReceptiveAccount methodsFor: 'testing' stamp: 'HernanWilkinson 7/13/2011 18:37'!
 manages: anAccount
 
 	^ self = anAccount 
 ! !
 
+!ReceptiveAccount methodsFor: 'testing' stamp: 'EV 5/9/2018 18:07:46'!
+managesAnyAccountOf: anotherAccount
+
+	^ anotherAccount manages: self! !
+
 !ReceptiveAccount methodsFor: 'testing' stamp: 'HernanWilkinson 7/13/2011 18:37'!
 registers: aTtransaction
 
 	^ transactions includes: aTtransaction 
 ! !
-
-
-!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'EV 5/9/2018 18:06:40'!
-isPartOfPortfolio: aPortfolio
-
-	^aPortfolio manages: self! !
-
-!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'EV 5/9/2018 18:07:46'!
-managesAnyAccountOf: anotherAccount
-
-	^ anotherAccount manages: self! !
