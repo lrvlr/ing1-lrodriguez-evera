@@ -550,8 +550,8 @@ value
 	self subclassResponsibility ! !
 
 
-!AccountTransaction methodsFor: 'accessing' stamp: 'LVR 5/14/2018 19:54:34'!
-identifyTransactionsFor: aFinancialTransactionsOperator
+!AccountTransaction methodsFor: 'accessing' stamp: 'LREV 5/17/2018 16:24:35'!
+identifyTransactionFor: aFinancialTransactionsOperator
 
 	self subclassResponsibility! !
 
@@ -591,8 +591,8 @@ value
 	^value! !
 
 
-!CertificateOfDeposit methodsFor: 'accessing' stamp: 'LVR 5/17/2018 09:18:15'!
-identifyTransactionsFor: aFinancialTransactionsOperator
+!CertificateOfDeposit methodsFor: 'accessing' stamp: 'LREV 5/17/2018 16:24:53'!
+identifyTransactionFor: aFinancialTransactionsOperator
 	^aFinancialTransactionsOperator fromCertificateOfDeposit: self.! !
 
 
@@ -647,8 +647,8 @@ value
 	^ value! !
 
 
-!Deposit methodsFor: 'accesing' stamp: 'LVR 5/17/2018 09:17:57'!
-identifyTransactionsFor: aFinancialTransactionsOperator
+!Deposit methodsFor: 'accesing' stamp: 'LREV 5/17/2018 16:23:36'!
+identifyTransactionFor: aFinancialTransactionsOperator
 	^aFinancialTransactionsOperator fromDeposit: self.! !
 
 
@@ -685,8 +685,8 @@ AccountTransaction subclass: #TransferTransaction
 	poolDictionaries: ''
 	category: 'PortfolioTreePrinter-Ejercicio'!
 
-!TransferTransaction methodsFor: 'accesing' stamp: 'LVR 5/14/2018 20:28:06'!
-identifyTransactionsFor: aFinancialTransactionsOperator
+!TransferTransaction methodsFor: 'accesing' stamp: 'LREV 5/17/2018 16:25:52'!
+identifyTransactionFor: aFinancialTransactionsOperator
 	self subclassResponsibility! !
 
 
@@ -735,8 +735,8 @@ value
 	^ transfer value! !
 
 
-!TransferDeposit methodsFor: 'accessing' stamp: 'LVR 5/17/2018 09:17:34'!
-identifyTransactionsFor: aFinancialTransactionsOperator
+!TransferDeposit methodsFor: 'accessing' stamp: 'LREV 5/17/2018 16:25:36'!
+identifyTransactionFor: aFinancialTransactionsOperator
 	^aFinancialTransactionsOperator fromTransferDeposit: self.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
@@ -779,8 +779,8 @@ value
 	^transfer value! !
 
 
-!TransferWithdraw methodsFor: 'accessing' stamp: 'LVR 5/17/2018 09:17:43'!
-identifyTransactionsFor: aFinancialTransactionsOperator
+!TransferWithdraw methodsFor: 'accessing' stamp: 'LREV 5/17/2018 16:26:03'!
+identifyTransactionFor: aFinancialTransactionsOperator
 	^aFinancialTransactionsOperator fromTransferWithdraw: self.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
@@ -814,8 +814,8 @@ value
 	^value! !
 
 
-!Withdraw methodsFor: 'accesing' stamp: 'LVR 5/17/2018 09:18:06'!
-identifyTransactionsFor: aFinancialTransactionsOperator
+!Withdraw methodsFor: 'accesing' stamp: 'LREV 5/17/2018 16:26:33'!
+identifyTransactionFor: aFinancialTransactionsOperator
 	^aFinancialTransactionsOperator fromWithdraw: self.! !
 
 
@@ -885,16 +885,15 @@ initializeFor: aPortfolio withAccountNames: aDictionaryOfAccountNames
 	level:= ''.! !
 
 
-!PortfolioTree methodsFor: 'value' stamp: 'LVR 5/17/2018 09:31:39'!
+!PortfolioTree methodsFor: 'value' stamp: 'LREV 5/17/2018 16:36:00'!
 fromPortfolio: aPortfolio
 
-	
 	lines add: (level, (accountNames at: aPortfolio ifAbsent: [self error: self class accountNameNotInDictionaryDescrpition ])).
+	
 	level := level, ' '.
 	
 	aPortfolio identifyContainedAccountsFor: self.
-	
-	
+
 	level := level copyFrom:2 to: level size.! !
 
 !PortfolioTree methodsFor: 'value' stamp: 'LVR 5/17/2018 07:05:16'!
@@ -1067,15 +1066,15 @@ fromCertificateOfDeposit: aCertificateOfDeposit
 fromDeposit: aDeposit
 ! !
 
-!AccountTransferNet methodsFor: 'value' stamp: 'LVR 5/17/2018 09:41:14'!
+!AccountTransferNet methodsFor: 'value' stamp: 'LREV 5/17/2018 16:03:54'!
 fromTransferDeposit: aTransferDeposit
 	
-	 transferNet _ transferNet + aTransferDeposit value.! !
+	 transferNet _ aTransferDeposit affectBalance: transferNet.! !
 
-!AccountTransferNet methodsFor: 'value' stamp: 'LVR 5/17/2018 09:41:18'!
+!AccountTransferNet methodsFor: 'value' stamp: 'LREV 5/17/2018 16:04:49'!
 fromTransferWithdraw: aTransferWithdraw
 	
-	transferNet _ transferNet - aTransferWithdraw value.! !
+	transferNet _ aTransferWithdraw affectBalance: transferNet.! !
 
 !AccountTransferNet methodsFor: 'value' stamp: 'LVR 5/17/2018 09:41:23'!
 fromWithdraw: aWithdraw
@@ -1290,10 +1289,10 @@ balance
 	^ accounts sum: [ :account | account balance ]
 ! !
 
-!Portfolio methodsFor: 'transactions' stamp: 'LVR 5/17/2018 09:32:28'!
+!Portfolio methodsFor: 'transactions' stamp: 'LREV 5/17/2018 16:24:04'!
 identifyTransactionsFor: aFinancialTransactionsOperator
 	self transactions do: [ :aTransaction |
-		aTransaction identifyTransactionsFor: aFinancialTransactionsOperator ].! !
+		aTransaction identifyTransactionFor: aFinancialTransactionsOperator ].! !
 
 !Portfolio methodsFor: 'transactions' stamp: 'HAW 9/25/2017 19:40:20'!
 transactions 
@@ -1395,10 +1394,10 @@ balance
 identifyAccountFor: aFinancialAccountOperator
 	aFinancialAccountOperator fromReceptiveAccount: self.! !
 
-!ReceptiveAccount methodsFor: 'transactions' stamp: 'LVR 5/17/2018 09:33:02'!
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'LREV 5/17/2018 16:24:09'!
 identifyTransactionsFor: aFinancialTransactionsOperator
 	transactions do: [ :aTransaction |
-		aTransaction identifyTransactionsFor: aFinancialTransactionsOperator ].! !
+		aTransaction identifyTransactionFor: aFinancialTransactionsOperator ].! !
 
 !ReceptiveAccount methodsFor: 'transactions' stamp: 'HernanWilkinson 7/13/2011 18:37'!
 register: aTransaction
