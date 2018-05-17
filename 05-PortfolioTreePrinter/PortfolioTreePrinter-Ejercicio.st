@@ -600,6 +600,11 @@ identifyTransactionsFor: aFinancialTransactionsOperator
 affectBalance: aBalance
 	^ aBalance - self value.! !
 
+!CertificateOfDeposit methodsFor: 'accounting' stamp: 'LVR 5/17/2018 11:46:22'!
+earnings	
+	
+	^ (self value * ( (self rate / 360) * self period ) )! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'CertificateOfDeposit class' category: #'PortfolioTreePrinter-Ejercicio'!
@@ -1113,10 +1118,10 @@ initializeFor: anAccount
 	earnings := 0! !
 
 
-!InvestmentEarnings methodsFor: 'value' stamp: 'LVR 5/14/2018 16:03:11'!
+!InvestmentEarnings methodsFor: 'value' stamp: 'LVR 5/17/2018 11:47:05'!
 fromCertificateOfDeposit: aCertificateOfDeposit
 
-	earnings := earnings + (aCertificateOfDeposit value * ( (aCertificateOfDeposit rate / 360) * aCertificateOfDeposit period ) )! !
+	earnings := earnings + (aCertificateOfDeposit earnings)! !
 
 !InvestmentEarnings methodsFor: 'value' stamp: 'LVR 5/17/2018 06:25:57'!
 fromDeposit: aDeposit
