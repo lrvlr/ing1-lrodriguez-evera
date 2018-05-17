@@ -871,35 +871,35 @@ value
 
 !classDefinition: #PortfolioTree category: #'PortfolioTreePrinter-Ejercicio'!
 OperatorOnAccounts subclass: #PortfolioTree
-	instanceVariableNames: 'portfolio accountNames lines level'
+	instanceVariableNames: 'portfolio accountNames lines levelIndentation'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'PortfolioTreePrinter-Ejercicio'!
 
-!PortfolioTree methodsFor: 'initialization' stamp: 'LVR 5/14/2018 18:00:00'!
+!PortfolioTree methodsFor: 'initialization' stamp: 'LREV 5/17/2018 16:49:03'!
 initializeFor: aPortfolio withAccountNames: aDictionaryOfAccountNames
 
 	portfolio _ aPortfolio.
 	accountNames _ aDictionaryOfAccountNames.
 	lines := OrderedCollection new.
-	level:= ''.! !
+	levelIndentation := ''.! !
 
 
-!PortfolioTree methodsFor: 'value' stamp: 'LREV 5/17/2018 16:36:00'!
+!PortfolioTree methodsFor: 'value' stamp: 'LREV 5/17/2018 16:49:23'!
 fromPortfolio: aPortfolio
 
-	lines add: (level, (accountNames at: aPortfolio ifAbsent: [self error: self class accountNameNotInDictionaryDescrpition ])).
+	lines add: (levelIndentation, (accountNames at: aPortfolio ifAbsent: [self error: self class accountNameNotInDictionaryDescrpition ])).
 	
-	level := level, ' '.
+	levelIndentation := levelIndentation, ' '.
 	
 	aPortfolio identifyContainedAccountsFor: self.
 
-	level := level copyFrom:2 to: level size.! !
+	levelIndentation := levelIndentation copyFrom:2 to: levelIndentation size.! !
 
-!PortfolioTree methodsFor: 'value' stamp: 'LVR 5/17/2018 07:05:16'!
+!PortfolioTree methodsFor: 'value' stamp: 'LREV 5/17/2018 16:49:29'!
 fromReceptiveAccount: aReceptiveAccount
 
-	lines add: (level, (accountNames at: aReceptiveAccount ifAbsent: [self error: self class accountNameNotInDictionaryDescrpition ])).
+	lines add: (levelIndentation, (accountNames at: aReceptiveAccount ifAbsent: [self error: self class accountNameNotInDictionaryDescrpition ])).
 	! !
 
 !PortfolioTree methodsFor: 'value' stamp: 'LVR 5/17/2018 09:31:26'!
