@@ -398,18 +398,6 @@ initialize
 	
 	! !
 
-
-!TicTacToe methodsFor: 'access' stamp: 'jg 5/22/2018 10:01:34'!
-Os
-
-	^os copy.! !
-
-!TicTacToe methodsFor: 'access' stamp: 'jg 5/22/2018 10:01:25'!
-Xs
-
-	^xs copy.! !
-
-
 !TicTacToe methodsFor: 'fair play' stamp: 'LREV 5/31/2018 00:47:12'!
 markOIn: aPosition
 	self isValidPosition: aPosition.
@@ -550,26 +538,26 @@ isTied
 TicTacToe class
 	instanceVariableNames: ''!
 
-!TicTacToe class methodsFor: 'as yet unclassified' stamp: 'jg 5/22/2018 13:15:31'!
+!TicTacToe class methodsFor: 'error message' stamp: 'jg 5/22/2018 13:15:31'!
 canNotPlayWhenGameIsOverErrorMessage
 	
 	^'Can not play when game is over'! !
 
-!TicTacToe class methodsFor: 'as yet unclassified' stamp: 'LVR 5/25/2018 17:30:00'!
+!TicTacToe class methodsFor: 'error message' stamp: 'LVR 5/25/2018 17:30:00'!
 notOTurnErrorMessage
 
 	^'Not O turn'! !
 
-!TicTacToe class methodsFor: 'as yet unclassified' stamp: 'LREV 5/30/2018 17:42:32'!
+!TicTacToe class methodsFor: 'error message' stamp: 'LREV 5/30/2018 17:42:32'!
 notValidPositionErrorMessage
 	^'La posicion elegida no es valida'! !
 
-!TicTacToe class methodsFor: 'as yet unclassified' stamp: 'jg 5/22/2018 10:26:38'!
+!TicTacToe class methodsFor: 'error message' stamp: 'jg 5/22/2018 10:26:38'!
 notXTurnErrorMessage
 
 	^'Not X turn'! !
 
-!TicTacToe class methodsFor: 'as yet unclassified' stamp: 'LVR 5/30/2018 00:05:11'!
+!TicTacToe class methodsFor: 'error message' stamp: 'LVR 5/30/2018 00:05:11'!
 positionTakenErrorMessage
 	
 	^'Position taken or outside the board'! !
