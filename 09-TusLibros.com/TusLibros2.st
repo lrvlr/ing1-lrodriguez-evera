@@ -356,12 +356,11 @@ debitAmount: anAmount from: aCreditCard! !
 Cashier class
 	instanceVariableNames: ''!
 
-!Cashier class methodsFor: 'instance creation' stamp: 'LREV 6/10/2018 20:11:56'!
+!Cashier class methodsFor: 'instance creation' stamp: 'LREV 6/11/2018 15:03:11'!
 for: aCart with: aCreditCard
 	
-	aCart isEmpty ifTrue: [ self error: self cantCheckOutEmptyCartErrorMessage ].
-	
-	aCreditCard hasExpired ifTrue: [ self error: self cantPayWithAnExpiredCardErrorMessage ].
+	self assertCartIsNotEmpty: aCart.
+	self assertCardHasNotExpired: aCreditCard.
 	
 	^ self new for: aCart with: aCreditCard.! !
 
@@ -373,6 +372,17 @@ cantCheckOutEmptyCartErrorMessage
 !Cashier class methodsFor: 'error messages' stamp: 'LREV 6/10/2018 00:09:44'!
 cantPayWithAnExpiredCardErrorMessage
 	^'Your credit card is expired.'! !
+
+
+!Cashier class methodsFor: 'assertions' stamp: 'LREV 6/11/2018 15:04:24'!
+assertCardHasNotExpired: aCreditCard
+
+	aCreditCard hasExpired ifTrue: [ self error: self cantPayWithAnExpiredCardErrorMessage ].! !
+
+!Cashier class methodsFor: 'assertions' stamp: 'LREV 6/11/2018 15:04:07'!
+assertCartIsNotEmpty: aCart
+
+	aCart isEmpty ifTrue: [ self error: self cantCheckOutEmptyCartErrorMessage ].! !
 
 
 !classDefinition: #CreditCard category: #TusLibros!
